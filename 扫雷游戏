@@ -44,6 +44,7 @@ noip复赛 二维数组
 
 
 代码：
+```cpp
 #include<bits/stdc++.h>
 using namespace std;
 int main() {
@@ -108,4 +109,5 @@ int main() {
 	cout<<endl;
 	}
 	return 0;
-} 
+}
+```
