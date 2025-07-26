@@ -1,0 +1,36 @@
+【题目描述】
+分数a / b化为小数后，小数点后第
+n
+n位的数字是多少？
+ 
+【输入】
+三个正整数
+a
+，
+b
+，
+n
+a，b，n，相邻两个数之间用单个空格隔开。0<a<b< 100，1≤n≤10000。
+ 
+【输出】
+一个数字。
+
+代码：
+
+#include <iostream>
+using namespace std;
+ 
+int main() {
+    int a, b, n;
+    cin >> a >> b >> n;
+ 
+    a = a % b;  // 确保a < b，不影响小数部分
+    for (int i = 1; i <= n; ++i) {
+        a = a * 10;
+        int digit = a / b;
+        a = a % b;
+    }
+ 
+    cout << digit << endl;
+    return 0;
+}
