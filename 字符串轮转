@@ -1,0 +1,36 @@
+题目描述：
+输入两个只包含小写字母的字符串，判断第2个字符串是否由第1个字符串旋转得到。字符串旋转1次为将字符串首字符放到最后。例如abcd旋转2次后得到的字符串为:cdab。
+
+输入格式：
+两行，每行一个只包含小写字母的字符串。长度不超过100位。
+
+输出格式：
+可以输出 "True", 不可以输出 "False"。
+
+样例：
+输入数据 1
+waterbottle
+erbottlewat
+
+输出数据 1
+True
+
+代码：
+#include <iostream>
+#include <string>
+using namespace std;
+int main() {
+    string s1,s2;
+    cin>>s1>>s2;
+    if(s1.length()!=s2.length()){
+        cout<<"False"<< endl;
+        return 0;
+    }
+    string t=s1+s1;
+    if(t.find(s2)!=-1){
+        cout<<"True"<<endl;
+    }else{
+        cout<<"False"<<endl;
+    }cout<<t;
+    return 0;
+}
