@@ -19,20 +19,20 @@ cd
 #include <bits/stdc++.h>
 using namespace std;
 int main() {
-    char s[1000],s1[1000];
-    cin.getline(s,1000);
+    char s[1000],s1[1000];//char类型数组可以使用tolower或toupper
+    cin.getline(s,1000);//char类型数组能输入空格的方式
     cin>>s1;
-    int len=strlen(s),sum=0,s1dlen=strlen(s1);//s1dlen意思是s1的len
+    int len=strlen(s),sum=0,s1dlen=strlen(s1);//s1dlen意思是s1的len,计算两个字符串的长度
     for(int i=0;i<=len-s1dlen;i++){
         bool m=true;
-        for(int j=0;j<s1dlen;j++){
-            if(tolower(s[i+j])!=tolower(s1[j])){
-                m=false;
-                break;
+        for(int j=0;j<s1dlen;j++){//两个字符串的共同规律
+            if(tolower(s[i+j])!=tolower(s1[j])){//转换大小写
+                m=false;//不是相同
+                break;//如果不是则跳出小循环（j）继续大循环（i）
             }
         }
-        if(m){
-            sum++;
+        if(m){//如果是相同的就不会执行跳过（break），来到这里，括号内只写m就是判断m是否为1（真）
+            sum++;//计数变量增加
         }
     }
     if(sum==0){
