@@ -43,7 +43,7 @@ void fun(int x){
     }
 }
 int main(){
-    cin >> n;   // 输入要全排列的数字个数
+    cin>>n;   // 输入要全排列的数字个数
     fun(1);     // 从第1个位置开始递归生成全排列
     return 0;
 }
