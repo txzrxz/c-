@@ -1,0 +1,33 @@
+题目描述：
+使用埃氏筛法判断输入的数字n是否是质数。
+
+输入格式：
+一个正整数n，2 <= n <= 1000000。
+
+输出格式：
+是质数输出YES，不是输出NO。
+
+样例：
+输入数据 1：
+12
+
+输出数据 1：
+NO
+
+代码：
+#include <bits/stdc++.h>
+using namespace std;
+bool isprime(int x){//prime:质数
+    if(x<2)return false;
+    for(int i=2;i*i<=x;i++){
+        if(x%i==0)return false;
+    }
+    return true;
+}
+int main(){
+    int n;
+    cin>>n;
+    if(isprime(n)==1)cout<<"YES";
+    else cout<<"NO";
+    return 0;
+}
