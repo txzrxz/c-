@@ -10,20 +10,25 @@
 一个数字。
 
 代码：
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
- 
 int main() {
-    int a, b, n;
-    cin >> a >> b >> n;
- 
-    a = a % b;  // 确保a < b，不影响小数部分
-    for (int i = 1; i <= n; ++i) {
-        a = a * 10;
-        int digit = a / b;
-        a = a % b;
+    // 定义变量：a是分子，b是分母，n是要查找的位数，sum用于存储每一步的商
+    int a,b,n,sum=0;
+    // 从输入读取三个正整数a、b、n
+    cin>>a>>b>>n;
+    // 循环计算到小数点后第n位
+    for(int i=1;i<=n;i++){
+        // 将当前的余数乘以10，相当于在小数计算中向后移一位
+        // 例如：1/7，第一次循环a=1*10=10，计算十分位
+        a=a*10;
+        // 计算当前位的数字（商），即小数点后第i位的数字
+        sum=a/b;
+        // 更新a为当前除法的余数，用于下一位的计算
+        // 例如：10/7商1余3，所以a更新为3，用于计算百分位
+        a=a%b;
     }
- 
-    cout << digit << endl;
+    // 输出小数点后第n位的数字
+    cout<<sum<<endl;
     return 0;
 }
