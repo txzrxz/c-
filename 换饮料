@@ -1,0 +1,35 @@
+换饮料：
+
+题目描述：
+Jack一共买了 n 瓶饮料，他每喝完一瓶饮料就把饮料瓶保存起来。k 个饮料瓶可以换一个新的饮料，那么Jack最终能喝到多少瓶饮料呢？
+
+输入格式：
+一行，两个正整数 n,k。（ 1＜n,k≤100000 ）
+
+输出格式：
+一行，1个正整数。
+
+样例：
+输入数据 1：
+4 3
+
+输出数据 1：
+5
+
+代码：
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+	int n,k,num=0,sum=0;
+    cin>>n>>k;
+    while(n--){
+        sum++;
+        num++;
+        if(num==k){
+            num=0;
+            sum++;
+            num++;
+        }
+    }cout<<sum;
+	return 0;
+}
