@@ -24,4 +24,33 @@ N 行，每行为 0 或 1，表示序列第 Ai位上的数字。
 0
 
 提示:
-对于 100% 的数据有 N≤150000，Ai≤108N≤150000，Ai≤10 8
+对于 100% 的数据有 N≤150000，Ai≤10^8
+
+代码：
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+ll n;
+int main() {
+	cin>>n;
+	while(n--){
+		ll ai,x;
+		scanf("%lld",&ai);
+		x=sqrt(2*ai);//(1+x)*x/2>=ai
+		while((1+x)*x<2*ai)x++;
+		if((1+x)*x==2*ai){//ai刚好是前x项的和
+		//ai的位置就在当前项的最后一个数 
+			if(x==1){//第一项 
+			cout<<"1";
+		}else{
+			cout<<"0";
+		}
+		cout<<endl;
+	}else{
+		ll t1=(1+x)*x/2;
+		if(x-(t1-ai)==1)cout<<"1"<<endl;
+		else cout<<"0"<<endl; 
+	}
+}
+	return 0;
+}
