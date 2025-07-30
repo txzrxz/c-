@@ -1,0 +1,55 @@
+活动选择：
+
+题目描述：
+学校在最近几天有 n 个活动，这些活动都需要使用学校的大礼堂，在同一时间，礼堂只能被一个活动使用。由于有些活动时间上有冲突，学校办公室人员只好让一些活动放弃使用礼堂而使用其他教室。 现在给出 n 个活动使用礼堂的起始时间 begini和结束时间endi(begini<endi)，请你帮助办公室人员安排一些活动来使用礼堂，要求安排的活动尽量多。
+
+输入格式：
+第一行一个整数 n(n≤1000)； 接下来的 n 行，每行两个整数，第一个 begini，第二个是endi(begini<endi≤32767)。
+
+输出格式：
+输出最多能安排的活动个数。
+
+样例：
+输入数据 1：
+11
+3 5
+1 4
+12 14
+8 12
+0 6
+8 11
+6 10
+5 7
+3 8
+5 9
+2 13
+
+输出数据 1：
+4
+
+代码：
+#include <bits/stdc++.h>
+using namespace std;
+//安排可以更好的衔接后续活动的活动
+struct node{
+    int bg,ed; 
+}a[1001];
+bool cmp(node a,node b){
+	return a.ed<b.ed;
+}
+int n;
+int main() {
+    cin>>n;
+    for(int i=0;i<n;i++)cin>>a[i].bg>>a[i].ed;
+    sort(a,a+n,cmp);
+    //第1个活动（结束最早的活动）必被安排
+	int ans=1,last=a[0].ed;
+	for(int i=1;i<n;i++){
+		if(a[i].bg>=last){//当前活动开始时间 >= 上个活动结束时间 
+			ans++;
+			last=a[i].ed;//更新，最后一个活动的结束时间 
+		}
+	}
+	cout<<ans;
+	return 0;
+}
