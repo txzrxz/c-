@@ -1,0 +1,52 @@
+购物竞赛:
+
+题目描述：
+某大型卖场在节日期间举行购物竞赛，参赛者可以推着购物车在卖场中选择提前罗列好的商品，可选商品有 N 种，每种商品的总价为 M 元，被拆分成均等的 K 个包装，现在购物车里可以装的包装数量被固定为 L 个，问怎么选才能使购物车中的价值最大。
+
+输入格式：
+第一行输入整数 N 和 L，用空格隔开。 第二行到第 N+1 行，每行两个整数 M 和 K，用空格隔开。
+
+输出格式：
+一个整数，购物车中可以装载的最大价值。
+
+样例：
+输入数据 1:
+5 10
+12 6
+8 2
+20 4
+7 7
+15 5
+
+输出数据 1:
+40
+
+代码：
+#include <bits/stdc++.h>
+using namespace std;
+struct product{
+    int m;//m:总价 
+    int k;//k:个数 
+    int money;//money:单价 
+}a[101];
+bool cmp(const product&a,const product&b){
+    return a.money>b.money;//从大到小 
+}
+int main() {
+	int n,l; 
+    cin>>n>>l;
+    for(int i=0;i<n;i++){
+        cin>>a[i].m>>a[i].k;
+        a[i].money=a[i].m/a[i].k;//单价=总价/数量 
+    }
+    sort(a,a+n,cmp);//排序 
+    int all=0,s=l;//s:装了多少个 
+    for(int i=0;i<n && s>0;i++){//s>0:还能不能装 
+        int na=min(s,a[i].k);//还能拿几个 
+        if(na>0){
+            all+=a[i].money*na;//all:购物车价值 
+            s-=na;
+        }
+    }cout<<all;
+	return 0;
+}
