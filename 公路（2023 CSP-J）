@@ -62,3 +62,29 @@ int main() {
     cout<<cost<<endl;
     return 0;
 }
+
+
+更简短的代码：
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+ll n,d,v[100010],a[100010],mn=0x3f3f3f3f;
+ll D;//存油箱里的油能走多远 
+ll ans; 
+int main() {
+	cin>>n>>d;
+	for(int i=1;i<n;i++)cin>>v[i];
+	for(int i=1;i<=n;i++)cin>>a[i];
+	for(int i=1;i<=n-1;i++){
+		mn=min(mn,a[i]);//求最小油价
+		if(D>=v[i]){
+			D-=v[i];//不需要加油，消耗油箱里的油 
+		}else{
+			ll t=v[i]-D;//需要加走多远的油
+			ll num=ceil(t*1.0/d);//(t+d-1)/d  求油的数量
+			ans+=mn*num;//累加价格
+			D+=num*d-v[i]; 
+		}
+	}
+	return 0;
+}
