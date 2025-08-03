@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+/*
+深度优先搜索:能走就走过去，不能走就回到上一个位置尝试其他方向
+*/ 
+int n,a[11][11],flag;
+int dis[4][2]={{-1,0},{1,0},{0,-1},{0,1}};//方向数组，给出上下左右每个方向x和y的变化
+void dfs(int x,int y){//(x,y)为当前所在的位置
+	if(x==n && y==n){//是不是终点
+		flag=1;//标记已经走到终点 
+		return;
+	}
+	//依次访问(x,y)的四个方向 :上下左右
+	for(int i=0;i<4;i++){//找到能走的方向，能走就直接走
+		//求出该方向要去的点(tx,ty) 上(x-1,y) 下(x+1,y) 左(x,y-1) 右(x,y+1)
+		int tx=x+dis[i][0],ty=y+dis[i][1];
+		//(tx,ty)没有越界 && a[tx][ty]!=1 && 不是当前路径上已走过的点(标记)
+		if(tx>=1 && tx<=n && ty>=1 && ty<=n && a[tx][ty]!=1){
+			a[tx][ty]=1;//把(tx,ty)标记一下
+			dfs(tx,ty);//走到(tx,ty)接着从(tx,ty)继续走
+		}
+	}
+} 
+int main() {
+	cin>>n;
+	for(int i=1;i<=n;i++){
+		for(int j=1;j<=n;j++){
+			cin>>a[i][j];
+		}
+	}
+	a[1][1]=1;//直接把走过的点标记(改成1)
+	dfs(1,1);
+	if(flag==1)cout<<"YES";
+	else cout<<"NO";
+	return 0;
+}
