@@ -1,0 +1,69 @@
+互质小分队：
+
+题目描述：
+有 n 个小朋友分组，每个小朋友手里都拿一个纸条，每个纸条上都写了一个整数，现在将小朋友们分组，使得每组中任意两个小朋友手上的数字互质(最大公约数为1)。至少要把小朋友分成多少组？
+
+输入格式：
+第一行是一个正整数 n，1≤n≤10。表示小朋友的数量。 第二行是 n 个不大于 10000 的正整数，是小朋友手里的数字。
+
+输出格式：
+一个正整数，即最少分成多少组。
+
+样例：
+输入数据 1：
+6
+14 20 33 117 143 175
+
+输出数据 1：
+3
+
+代码：
+#include <bits/stdc++.h>
+using namespace std;
+int n;
+vector<int>a;
+// i:前处理的元素索引
+// k:尝试数
+// b:分组
+int gcd(int x,int y){
+    while(y!=0){
+        int t=x%y;
+        x=y;
+        y=t;
+    }
+    return x;
+}
+bool fun(int i,int k,vector<int>&b){
+    if(i==n)return true;
+    for(int j=0;j<k;j++){//放入第j组
+        bool v=true;//标记 
+        //有没有相同数字 
+        for(int m=0;m<i;m++){
+            //不互质
+            if(b[m]==j && gcd(a[i],a[m])>1){//gcd(a[i],a[m])>1 最大公约数>1 
+                v=false;//不行 
+                break;
+            }
+        }
+        if(v){
+            b[i]=j;//第i个放第j组 
+            if(fun(i+1,k,b))return true;
+            b[i]=-1;//回溯
+        }
+    }
+    return false;
+}
+int main(){
+    cin>>n;
+    a.resize(n);//resize():调整到n个 
+    for(int i=0;i<n;i++)cin>>a[i];
+    for(int k=1;k<=n;k++){
+        vector<int>b(n,-1);//b[i]:第i个元素的分组
+        if(fun(0,k,b)){
+            cout<<k;//k组 
+            return 0;
+        }
+    }
+    cout<<n;//单个1组 
+    return 0;
+}
