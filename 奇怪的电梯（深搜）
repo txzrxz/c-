@@ -20,57 +20,35 @@
 代码：
 #include <bits/stdc++.h>
 using namespace std;
-// 全局变量定义
-int n,a,b;        // n:楼层总数, a:起始楼层, b:目标楼层
-int k[201];       // 存储每层楼的数字k[i]
-int v[201];       // 标记数组,记录楼层是否被访问过
-int m=1e6;        // 存储最少按键次数,初始化为一个较大值
-/*
-深度优先搜索函数:
-c:当前所在楼层
-s:已按键次数
-*/
-void dfs(int c,int s){
-    // 如果当前步数已大于等于最小值,无需继续搜索
-    if(s>=m)return;
-    // 如果到达达目标楼层,更新最小步数
-    if(c==b){
-        if(s<m)m=s;
-        return;
-    }
-    v[c]=1;// 标记
-    // 计算上移后的楼层
-    int u=c+k[c];
-    // 检查上移后的否合法且未访问过
-    if(u<=n && v[u]==0){
-        dfs(u,s+1);  // 递归访问上移后的楼层,步数+1
-    }
-    // 计算下移后的楼层
-    int d=c-k[c];
-    // 检查下移是否合法且未访问过
-    if(d>=1 && v[d]==0){
-        dfs(d,s+1);  // 递归访问下移后的楼层,步数+1
-    }
-    v[c]=0;// 回溯
+struct node{
+	int x,step;
+}q[201];
+int n,a,b,front,back,k[201],v[201];
+void bfs(){
+	q[back++]={a,0};// 初始化队列：将起始楼层a入队，初始步数为0
+	v[a]=1;
+	while(front<back){
+        // 取出队首元素
+		node t=q[front++];
+        if(t.x==b){
+            cout<<t.step;
+            return;
+        }
+		for(int i=-1;i<=1;i+=2){// i从-1开始，每次+2，依次取-1和1
+			int tmp=t.x+i*k[t.x];
+            // 1. 在1~n的范围内（有效楼层）
+            // 2. 未被访问过（避免重复搜索和循环）
+			if(tmp>=1 && tmp<=n && v[tmp]==0){
+				v[tmp]=1;//标记
+				q[back++]={tmp,t.step+1};// 将新楼层入队，步数在当前基础上加1
+			}
+		}
+	}
+	cout<<-1;
 }
 int main(){
     cin>>n>>a>>b;
-    // 特判 
-    if(a==b){
-        cout<<"0";
-        return 0;
-    }
-    for(int i=1;i<=n;i++){
-        cin>>k[i];
-    }
-    // 初始化访问标记数组
-    for(int i=1;i<=n;i++){
-        v[i]=0;
-    }
-    // 从起始楼层开始深度优先搜索,初始步数为0
-    dfs(a,0);
-    // 输出结果:若无法到达则输出-1,否则输出最小步数
-    if(m==1e6)cout<<-1;
-    else cout<<m;
+    for(int i=1;i<=n;i++)cin>>k[i];
+    bfs();
     return 0;
 }
